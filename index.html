@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#060b1d">
+<title>KJ Wallpapers</title>
+
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#060b1d;
+color:white
+}
+
+.app{
+max-width:520px;
+margin:auto;
+min-height:100vh;
+padding:18px
+}
+
+.header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:22px
+}
+
+.logo{
+font-size:30px;
+font-weight:800
+}
+
+.version{
+color:#7180a9;
+font-size:14px
+}
+
+.search{
+width:100%;
+height:55px;
+border-radius:18px;
+border:1px solid #243968;
+background:#0d1530;
+color:white;
+padding:0 18px;
+font-size:16px;
+outline:none;
+margin-bottom:20px
+}
+
+.search::placeholder{color:#7180a9}
+
+.title{
+font-size:26px;
+font-weight:800;
+margin-bottom:15px
+}
+
+.categories{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding-bottom:8px;
+margin-bottom:22px
+}
+
+.categories::-webkit-scrollbar{display:none}
+
+.category{
+flex-shrink:0;
+padding:12px 18px;
+border-radius:18px;
+border:1px solid #243968;
+background:#101a38;
+color:white;
+font-weight:600
+}
+
+.category.active{
+background:#315df5;
+border-color:#315df5
+}
+
+.wallpapers{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px
+}
+
+.card{
+background:#0d1530;
+border:1px solid #243968;
+border-radius:22px;
+overflow:hidden
+}
+
+.wallpaper{
+width:100%;
+height:230px;
+object-fit:cover;
+display:block
+}
+
+.card-content{padding:12px}
+
+.card-title{
+font-size:15px;
+font-weight:700;
+margin-bottom:9px
+}
+
+.download{
+width:100%;
+height:42px;
+border:none;
+border-radius:13px;
+background:#315df5;
+color:white;
+font-size:14px;
+font-weight:700
+}
+
+.download:active{transform:scale(.96)}
+
+.footer{
+text-align:center;
+color:#7180a9;
+font-size:13px;
+padding:30px 0 15px
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="header">
+<div class="logo">KJ Wallpapers</div>
+<div class="version">v1.0</div>
+</div>
+
+<input
+class="search"
+id="search"
+type="text"
+placeholder="Search wallpapers..."
+oninput="searchWallpapers()">
+
+<div class="title">Explore</div>
+
+<div class="categories">
+
+<button class="category active"
+onclick="filterCategory('all',this)">All</button>
+
+<button class="category"
+onclick="filterCategory('nature',this)">Nature</button>
+
+<button class="category"
+onclick="filterCategory('cars',this)">Cars</button>
+
+<button class="category"
+onclick="filterCategory('space',this)">Space</button>
+
+<button class="category"
+onclick="filterCategory('abstract',this)">Abstract</button>
+
+</div>
+
+<div class="wallpapers" id="wallpapers">
+
+<div class="card"
+data-category="nature"
+data-name="mountain nature">
+
+<img class="wallpaper"
+src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+<div class="card-title">Mountain Escape</div>
+<button class="download"
+onclick="downloadWallpaper(this)">Download</button>
+</div>
+
+</div>
+
+<div class="card"
+data-category="nature"
+data-name="forest nature">
+
+<img class="wallpaper"
+src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+<div class="card-title">Deep Forest</div>
+<button class="download"
+onclick="downloadWallpaper(this)">Download</button>
+</div>
+
+</div>
+
+<div class="card"
+data-category="cars"
+data-name="sports car">
+
+<img class="wallpaper"
+src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+<div class="card-title">Sports Car</div>
+<button class="download"
+onclick="downloadWallpaper(this)">Download</button>
+</div>
+
+</div>
+
+<div class="card"
+data-category="space"
+data-name="space galaxy">
+
+<img class="wallpaper"
+src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+<div class="card-title">Galaxy</div>
+<button class="download"
+onclick="downloadWallpaper(this)">Download</button>
+</div>
+
+</div>
+
+<div class="card"
+data-category="abstract"
+data-name="abstract blue">
+
+<img class="wallpaper"
+src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+<div class="card-title">Blue Abstract</div>
+<button class="download"
+onclick="downloadWallpaper(this)">Download</button>
+</div>
+
+</div>
+
+<div class="card"
+data-category="space"
+data-name="night sky">
+
+<img class="wallpaper"
+src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+<div class="card-title">Night Sky</div>
+<button class="download"
+onclick="downloadWallpaper(this)">Download</button>
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 KJ Wallpapers
+</div>
+
+</div>
+
+<script>
+let currentCategory="all";
+
+function filterCategory(category,button){
+
+currentCategory=category;
+
+document.querySelectorAll(".category")
+.forEach(btn=>btn.classList.remove("active"));
+
+button.classList.add("active");
+
+searchWallpapers();
+}
+
+function searchWallpapers(){
+
+const search=document
+.getElementById("search")
+.value.toLowerCase();
+
+document.querySelectorAll(".card")
+.forEach(card=>{
+
+const category=card.dataset.category;
+const name=card.dataset.name;
+
+const categoryMatch=
+currentCategory==="all"||
+category===currentCategory;
+
+const searchMatch=name.includes(search);
+
+card.style.display=
+categoryMatch&&searchMatch?"":"none";
+
+});
+}
+
+function downloadWallpaper(button){
+
+const card=button.closest(".card");
+const image=card.querySelector("img");
+
+const link=document.createElement("a");
+
+link.href=image.src;
+link.download=card.dataset.name+".jpg";
+link.target="_blank";
+
+document.body.appendChild(link);
+link.click();
+link.remove();
+}
+</script>
+
+</body>
+</html>
