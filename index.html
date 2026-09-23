@@ -4,134 +4,297 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#060b1d">
-<title>KJ Wallpapers</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>KJ Wallpapers V1000.0</title>
 
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+
+:root{
+--bg:#060b1d;
+--card:#0d1530;
+--card2:#111b3d;
+--text:#fff;
+--muted:#8994b5;
+--accent:#4d8dff;
+--border:rgba(255,255,255,.08)
+}
+
+body.light{
+--bg:#f2f5fb;
+--card:#fff;
+--card2:#e9eef8;
+--text:#111827;
+--muted:#667085;
+--border:rgba(0,0,0,.08)
+}
 
 body{
-margin:0;
+background:var(--bg);
+color:var(--text);
 font-family:Arial,sans-serif;
-background:#060b1d;
-color:white
+min-height:100vh;
+transition:.25s
 }
 
 .app{
-max-width:520px;
+width:100%;
+max-width:640px;
 margin:auto;
 min-height:100vh;
-padding:18px
+padding-bottom:85px
 }
 
-.header{
+header{
+position:sticky;
+top:0;
+z-index:20;
+padding:18px 16px;
+background:rgba(6,11,29,.9);
+backdrop-filter:blur(18px);
 display:flex;
-align-items:center;
 justify-content:space-between;
-margin-bottom:22px
+align-items:center;
+border-bottom:1px solid var(--border)
 }
 
-.logo{
-font-size:30px;
-font-weight:800
+body.light header{background:rgba(242,245,251,.9)}
+
+.logo{font-size:23px;font-weight:900}
+.logo span{color:var(--accent)}
+.version{font-size:10px;color:var(--muted);margin-top:3px}
+
+.icon-btn{
+width:42px;height:42px;border:0;border-radius:14px;
+background:var(--card);color:var(--text);font-size:20px
 }
 
-.version{
-color:#7180a9;
-font-size:14px
+.page{display:none;padding:16px}
+.page.active{display:block}
+
+h1{font-size:28px;margin:8px 0}
+h2{font-size:20px;margin:24px 0 12px}
+.subtitle{color:var(--muted);font-size:14px}
+
+.hero{
+margin-top:18px;height:300px;border-radius:25px;
+overflow:hidden;position:relative;background:#111;
+box-shadow:0 15px 35px rgba(0,0,0,.25)
+}
+
+.hero img{width:100%;height:100%;object-fit:cover}
+
+.hero:after{
+content:"";position:absolute;inset:0;
+background:linear-gradient(transparent 35%,rgba(0,0,0,.8))
+}
+
+.hero-content{
+position:absolute;z-index:2;bottom:18px;left:18px;right:18px
+}
+
+.hero-content small{color:#cbd5ff}
+.hero-content h2{margin:5px 0;font-size:24px}
+
+.btn{
+border:0;background:var(--accent);color:#fff;
+padding:12px 17px;border-radius:13px;
+font-weight:700;cursor:pointer
+}
+
+.btn.secondary{background:var(--card2);color:var(--text)}
+
+.actions{display:flex;gap:10px;margin-top:14px}
+
+.stats{
+display:grid;grid-template-columns:repeat(3,1fr);
+gap:10px;margin-top:16px
+}
+
+.stat{
+background:var(--card);border:1px solid var(--border);
+border-radius:17px;padding:15px 8px;text-align:center
+}
+
+.stat b{display:block;font-size:20px}
+.stat span{color:var(--muted);font-size:11px}
+
+.quick,.chips{
+display:flex;gap:9px;overflow-x:auto;padding-bottom:4px
+}
+
+.quick::-webkit-scrollbar,.chips::-webkit-scrollbar{display:none}
+
+.quick button,.chips button{
+flex:0 0 auto;border:1px solid var(--border);
+background:var(--card);color:var(--text);
+padding:10px 14px;border-radius:12px
+}
+
+.chips button.active{background:var(--accent);color:#fff}
+
+.horizontal{display:flex;gap:12px;overflow-x:auto}
+.horizontal::-webkit-scrollbar{display:none}
+
+.mini-card{
+min-width:155px;height:190px;border-radius:19px;
+overflow:hidden;position:relative;cursor:pointer
+}
+
+.mini-card img{width:100%;height:100%;object-fit:cover}
+
+.mini-card span{
+position:absolute;bottom:10px;left:10px;
+font-size:13px;font-weight:bold;text-shadow:0 2px 5px #000
 }
 
 .search{
+width:100%;padding:15px 17px;
+border:1px solid var(--border);
+background:var(--card);color:var(--text);
+border-radius:16px;outline:none;font-size:15px
+}
+
+.grid{
+display:grid;grid-template-columns:repeat(2,1fr);gap:12px
+}
+
+.wall{
+height:245px;border-radius:19px;
+overflow:hidden;position:relative;
+background:var(--card);cursor:pointer
+}
+
+.wall img{width:100%;height:100%;object-fit:cover}
+
+.wall:after{
+content:"";position:absolute;inset:0;
+background:linear-gradient(transparent 55%,rgba(0,0,0,.75))
+}
+
+.wall-info{
+position:absolute;z-index:2;bottom:12px;left:12px;right:12px
+}
+
+.wall-info b{font-size:14px}
+.wall-info small{display:block;color:#c5cee8;margin-top:3px}
+
+.heart{
+position:absolute;right:9px;top:9px;z-index:5;
+border:0;width:37px;height:37px;border-radius:50%;
+background:rgba(0,0,0,.5);color:#fff;font-size:18px
+}
+
+.collection{
+margin-bottom:14px;height:170px;border-radius:20px;
+overflow:hidden;position:relative;cursor:pointer
+}
+
+.collection img{width:100%;height:100%;object-fit:cover}
+
+.collection div{
+position:absolute;inset:auto 15px 15px;z-index:2;
+font-weight:800;font-size:18px;text-shadow:0 2px 6px #000
+}
+
+.collection:after{
+content:"";position:absolute;inset:0;
+background:linear-gradient(transparent 25%,rgba(0,0,0,.8))
+}
+
+.setting{
+background:var(--card);border:1px solid var(--border);
+border-radius:18px;padding:17px;margin-bottom:12px
+}
+
+.setting-title{font-weight:700;margin-bottom:12px}
+.colors{display:flex;gap:10px}
+
+.color{
+width:42px;height:42px;border-radius:50%;
+border:3px solid transparent;cursor:pointer
+}
+
+.blue{background:#4d8dff}
+.cyan{background:#00c8ff}
+.purple{background:#9b5cff}
+.green{background:#22c55e}
+
+.bottom{
+position:fixed;z-index:30;bottom:0;left:50%;
+transform:translateX(-50%);width:100%;max-width:640px;
+height:72px;background:rgba(10,16,38,.94);
+backdrop-filter:blur(18px);
+border-top:1px solid var(--border);
+display:grid;grid-template-columns:repeat(5,1fr)
+}
+
+body.light .bottom{background:rgba(255,255,255,.94)}
+
+.nav{
+border:0;background:none;color:var(--muted);
+font-size:10px;cursor:pointer
+}
+
+.nav span{display:block;font-size:20px;margin-bottom:4px}
+.nav.active{color:var(--accent)}
+
+.viewer{
+display:none;position:fixed;z-index:100;inset:0;
+background:#000;align-items:center;justify-content:center
+}
+
+.viewer.show{display:flex}
+.viewer img{max-width:100%;max-height:82vh;object-fit:contain}
+
+.viewer-top{
+position:absolute;top:15px;left:15px;right:15px;
+display:flex;justify-content:space-between;z-index:4
+}
+
+.viewer-bottom{
+position:absolute;bottom:20px;left:15px;right:15px;
+z-index:4;display:flex;gap:8px;justify-content:center
+}
+
+.viewer-btn{
+border:0;background:rgba(255,255,255,.15);
+backdrop-filter:blur(10px);color:#fff;
+width:46px;height:46px;border-radius:50%;font-size:19px
+}
+
+.viewer-title{
+position:absolute;bottom:82px;left:20px;
+color:#fff;font-weight:bold;z-index:4
+}
+
+.toast{
+position:fixed;z-index:200;left:50%;bottom:88px;
+transform:translateX(-50%) translateY(20px);
+background:#111827;color:#fff;padding:12px 17px;
+border-radius:13px;opacity:0;pointer-events:none;
+transition:.25s;font-size:13px
+}
+
+.toast.show{
+opacity:1;
+transform:translateX(-50%) translateY(0)
+}
+
+.empty{
+text-align:center;color:var(--muted);padding:45px 10px
+}
+
+.load-more{
+grid-column:1/-1;
 width:100%;
-height:55px;
-border-radius:18px;
-border:1px solid #243968;
-background:#0d1530;
-color:white;
-padding:0 18px;
-font-size:16px;
-outline:none;
-margin-bottom:20px
+margin-top:5px
 }
 
-.search::placeholder{color:#7180a9}
-
-.title{
-font-size:26px;
-font-weight:800;
-margin-bottom:15px
-}
-
-.categories{
-display:flex;
-gap:10px;
-overflow-x:auto;
-padding-bottom:8px;
-margin-bottom:22px
-}
-
-.categories::-webkit-scrollbar{display:none}
-
-.category{
-flex-shrink:0;
-padding:12px 18px;
-border-radius:18px;
-border:1px solid #243968;
-background:#101a38;
-color:white;
-font-weight:600
-}
-
-.category.active{
-background:#315df5;
-border-color:#315df5
-}
-
-.wallpapers{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px
-}
-
-.card{
-background:#0d1530;
-border:1px solid #243968;
-border-radius:22px;
-overflow:hidden
-}
-
-.wallpaper{
-width:100%;
-height:230px;
-object-fit:cover;
-display:block
-}
-
-.card-content{padding:12px}
-
-.card-title{
-font-size:15px;
-font-weight:700;
-margin-bottom:9px
-}
-
-.download{
-width:100%;
-height:42px;
-border:none;
-border-radius:13px;
-background:#315df5;
-color:white;
-font-size:14px;
-font-weight:700
-}
-
-.download:active{transform:scale(.96)}
-
-.footer{
-text-align:center;
-color:#7180a9;
-font-size:13px;
-padding:30px 0 15px
+@media(max-width:380px){
+.wall{height:220px}
+.hero{height:270px}
 }
 </style>
 </head>
@@ -140,193 +303,1299 @@ padding:30px 0 15px
 
 <div class="app">
 
-<div class="header">
-<div class="logo">KJ Wallpapers</div>
-<div class="version">v1.0</div>
+<header>
+<div>
+<div class="logo"><span>KJ</span> Wallpapers</div>
+<div class="version">V1000.0 • 10,000 Wallpapers</div>
 </div>
+
+<button class="icon-btn" onclick="toggleTheme()">🌙</button>
+</header>
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+<h1>Welcome back 👋</h1>
+<p class="subtitle">Discover thousands of wallpapers.</p>
+
+<div class="hero" id="daily"></div>
+
+<div class="actions">
+<button class="btn" onclick="randomWallpaper()">🎲 Random</button>
+<button class="btn secondary" onclick="showPage('explore')">🔎 Explore</button>
+</div>
+
+<div class="stats">
+<div class="stat">
+<b id="wallCount">10000</b>
+<span>Wallpapers</span>
+</div>
+
+<div class="stat">
+<b id="favCount">0</b>
+<span>Favorites</span>
+</div>
+
+<div class="stat">
+<b id="viewCount">0</b>
+<span>Views</span>
+</div>
+</div>
+
+<h2>Quick Explore</h2>
+
+<div class="quick">
+<button onclick="filterCategory('Nature')">🌲 Nature</button>
+<button onclick="filterCategory('Cars')">🏎️ Cars</button>
+<button onclick="filterCategory('Space')">🌌 Space</button>
+<button onclick="filterCategory('Abstract')">🎨 Abstract</button>
+<button onclick="filterCategory('City')">🌃 City</button>
+</div>
+
+<h2>🔥 Trending</h2>
+<div class="horizontal" id="trending"></div>
+
+<h2>🆕 New Wallpapers</h2>
+<div class="horizontal" id="newWallpapers"></div>
+
+<h2>⭐ Featured</h2>
+<div class="horizontal" id="featured"></div>
+
+</section>
+
+<!-- EXPLORE -->
+<section id="explore" class="page">
+
+<h1>Explore</h1>
+<p class="subtitle">Browse 10,000 wallpapers in 50 categories.</p>
+
+<br>
 
 <input
-class="search"
 id="search"
-type="text"
-placeholder="Search wallpapers..."
-oninput="searchWallpapers()">
+class="search"
+placeholder="🔎 Search wallpapers..."
+oninput="resetExplore()"
+>
 
-<div class="title">Explore</div>
+<div class="chips" id="categoryChips"></div>
 
-<div class="categories">
+<div class="actions">
+<button class="btn" onclick="randomWallpaper()">🎲 Random</button>
+</div>
 
-<button class="category active"
-onclick="filterCategory('all',this)">All</button>
+<br>
 
-<button class="category"
-onclick="filterCategory('nature',this)">Nature</button>
+<div class="grid" id="exploreGrid"></div>
 
-<button class="category"
-onclick="filterCategory('cars',this)">Cars</button>
+</section>
 
-<button class="category"
-onclick="filterCategory('space',this)">Space</button>
+<!-- COLLECTIONS -->
+<section id="collections" class="page">
 
-<button class="category"
-onclick="filterCategory('abstract',this)">Abstract</button>
+<h1>Collections</h1>
+<p class="subtitle">Wallpaper collections for every mood.</p>
+
+<br>
+
+<div class="collection" onclick="filterCategory('Nature')">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85">
+<div>🌲 Nature Escape</div>
+</div>
+
+<div class="collection" onclick="filterCategory('Cars')">
+<img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=85">
+<div>🏎️ Supercars</div>
+</div>
+
+<div class="collection" onclick="filterCategory('Space')">
+<img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=900&q=85">
+<div>🌌 Cosmic Universe</div>
+</div>
+
+<div class="collection" onclick="filterCategory('Abstract')">
+<img src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=900&q=85">
+<div>🎨 Abstract Energy</div>
+</div>
+
+<div class="collection" onclick="filterCategory('City')">
+<img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=85">
+<div>🌃 City Nights</div>
+</div>
+
+</section>
+
+<!-- FAVORITES -->
+<section id="favorites" class="page">
+
+<h1>❤️ Favorites</h1>
+<p class="subtitle">Your saved wallpapers.</p>
+
+<br>
+
+<button class="btn secondary" onclick="clearFavorites()">
+Clear Favorites
+</button>
+
+<h2>Your Wallpapers</h2>
+
+<div class="grid" id="favoriteGrid"></div>
+
+</section>
+
+<!-- SETTINGS -->
+<section id="settings" class="page">
+
+<h1>⚙️ Settings</h1>
+<p class="subtitle">Customize KJ Wallpapers.</p>
+
+<h2>Appearance</h2>
+
+<div class="setting">
+<div class="setting-title">Theme</div>
+<button class="btn" onclick="toggleTheme()">
+🌙 Toggle Dark / Light
+</button>
+</div>
+
+<div class="setting">
+<div class="setting-title">Accent Color</div>
+
+<div class="colors">
+<button class="color blue" onclick="setColor('#4d8dff')"></button>
+<button class="color cyan" onclick="setColor('#00c8ff')"></button>
+<button class="color purple" onclick="setColor('#9b5cff')"></button>
+<button class="color green" onclick="setColor('#22c55e')"></button>
+</div>
+</div>
+
+<h2>Data</h2>
+
+<div class="setting">
+<button class="btn secondary" onclick="clearFavorites()">
+🧹 Clear Favorites
+</button>
+</div>
+
+<div class="setting">
+<button class="btn secondary" onclick="clearViews()">
+🧹 Clear Views
+</button>
+</div>
+
+<h2>About</h2>
+
+<div class="setting">
+<b>KJ Wallpapers</b>
+<p class="subtitle" style="margin-top:7px">
+V1000.0 • 10,000 Wallpapers • 50 Categories
+</p>
+</div>
+
+</section>
 
 </div>
 
-<div class="wallpapers" id="wallpapers">
+<!-- NAVIGATION -->
 
-<div class="card"
-data-category="nature"
-data-name="mountain nature">
+<nav class="bottom">
 
-<img class="wallpaper"
-src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80">
+<button class="nav active" onclick="showPage('home',this)">
+<span>🏠</span>Home
+</button>
 
-<div class="card-content">
-<div class="card-title">Mountain Escape</div>
-<button class="download"
-onclick="downloadWallpaper(this)">Download</button>
-</div>
+<button class="nav" onclick="showPage('explore',this)">
+<span>🔎</span>Explore
+</button>
 
-</div>
+<button class="nav" onclick="showPage('collections',this)">
+<span>🏆</span>Collections
+</button>
 
-<div class="card"
-data-category="nature"
-data-name="forest nature">
+<button class="nav" onclick="showPage('favorites',this)">
+<span>❤️</span>Favorites
+</button>
 
-<img class="wallpaper"
-src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=700&q=80">
+<button class="nav" onclick="showPage('settings',this)">
+<span>⚙️</span>Settings
+</button>
 
-<div class="card-content">
-<div class="card-title">Deep Forest</div>
-<button class="download"
-onclick="downloadWallpaper(this)">Download</button>
-</div>
+</nav>
 
-</div>
+<!-- VIEWER -->
 
-<div class="card"
-data-category="cars"
-data-name="sports car">
+<div class="viewer" id="viewer">
 
-<img class="wallpaper"
-src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80">
+<div class="viewer-top">
 
-<div class="card-content">
-<div class="card-title">Sports Car</div>
-<button class="download"
-onclick="downloadWallpaper(this)">Download</button>
-</div>
+<button class="viewer-btn" onclick="closeViewer()">✕</button>
+
+<button class="viewer-btn" onclick="toggleFavorite(currentId)">
+❤️
+</button>
 
 </div>
 
-<div class="card"
-data-category="space"
-data-name="space galaxy">
+<img id="viewerImg">
 
-<img class="wallpaper"
-src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=700&q=80">
+<div class="viewer-title" id="viewerTitle"></div>
 
-<div class="card-content">
-<div class="card-title">Galaxy</div>
-<button class="download"
-onclick="downloadWallpaper(this)">Download</button>
-</div>
+<div class="viewer-bottom">
 
-</div>
+<button class="viewer-btn" onclick="previousWallpaper()">‹</button>
 
-<div class="card"
-data-category="abstract"
-data-name="abstract blue">
+<button class="viewer-btn" onclick="downloadCurrent()">⬇️</button>
 
-<img class="wallpaper"
-src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=700&q=80">
+<button class="viewer-btn" onclick="shareCurrent()">📤</button>
 
-<div class="card-content">
-<div class="card-title">Blue Abstract</div>
-<button class="download"
-onclick="downloadWallpaper(this)">Download</button>
-</div>
+<button class="viewer-btn" onclick="copyLink()">🔗</button>
 
-</div>
-
-<div class="card"
-data-category="space"
-data-name="night sky">
-
-<img class="wallpaper"
-src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=80">
-
-<div class="card-content">
-<div class="card-title">Night Sky</div>
-<button class="download"
-onclick="downloadWallpaper(this)">Download</button>
-</div>
+<button class="viewer-btn" onclick="nextWallpaper()">›</button>
 
 </div>
 
 </div>
 
-<div class="footer">
-© 2026 KJ Wallpapers
-</div>
-
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
-let currentCategory="all";
 
-function filterCategory(category,button){
+/* ==========================================
+   50 CATEGORIES
+========================================== */
 
-currentCategory=category;
+const categories = [
+"Nature",
+"Cars",
+"Space",
+"Abstract",
+"City",
+"Animals",
+"Ocean",
+"Mountains",
+"Sunset",
+"Sunrise",
+"Forest",
+"Beach",
+"Flowers",
+"Architecture",
+"Anime",
+"Gaming",
+"Technology",
+"Neon",
+"Cyberpunk",
+"Minimal",
+"Dark",
+"Luxury",
+"Motorcycles",
+"Planes",
+"Travel",
+"Roads",
+"Rain",
+"Snow",
+"Clouds",
+"Galaxy",
+"Moon",
+"Stars",
+"Desert",
+"Waterfalls",
+"Rivers",
+"Lakes",
+"Wildlife",
+"Birds",
+"Dogs",
+"Cats",
+"Sports",
+"Football",
+"Basketball",
+"Music",
+"Art",
+"Patterns",
+"3D",
+"Space Art",
+"Cars Night",
+"Aesthetic"
+];
 
-document.querySelectorAll(".category")
-.forEach(btn=>btn.classList.remove("active"));
 
-button.classList.add("active");
+/* ==========================================
+   IMAGE SOURCES
+========================================== */
 
-searchWallpapers();
-}
+const wallpaperSources = [
 
-function searchWallpapers(){
+["Mountain Escape","Nature",
+"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"],
 
-const search=document
-.getElementById("search")
-.value.toLowerCase();
+["Deep Forest","Forest",
+"https://images.unsplash.com/photo-1448375240586-882707db888b"],
 
-document.querySelectorAll(".card")
-.forEach(card=>{
+["Green Forest","Nature",
+"https://images.unsplash.com/photo-1470770841072-f978cf4d019e"],
 
-const category=card.dataset.category;
-const name=card.dataset.name;
+["Wild Mountains","Mountains",
+"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b"],
 
-const categoryMatch=
-currentCategory==="all"||
-category===currentCategory;
+["Lake Morning","Lakes",
+"https://images.unsplash.com/photo-1433086966358-54859d0ed716"],
 
-const searchMatch=name.includes(search);
+["Forest Road","Roads",
+"https://images.unsplash.com/photo-1501785888041-af3ef285b470"],
 
-card.style.display=
-categoryMatch&&searchMatch?"":"none";
+["Sports Car","Cars",
+"https://images.unsplash.com/photo-1503376780353-7e6692767b70"],
+
+["Black Machine","Cars Night",
+"https://images.unsplash.com/photo-1492144534655-ae79c964c9d7"],
+
+["Luxury Car","Luxury",
+"https://images.unsplash.com/photo-1553440569-bcc63803a83d"],
+
+["Red Supercar","Cars",
+"https://images.unsplash.com/photo-1544829099-b9a0c07fad1a"],
+
+["Night Drive","Cars Night",
+"https://images.unsplash.com/photo-1503736334956-4c8f8e92946d"],
+
+["Road Beast","Motorcycles",
+"https://images.unsplash.com/photo-1511919884226-fd3cad34687c"],
+
+["Galaxy","Galaxy",
+"https://images.unsplash.com/photo-1462331940025-496dfbfc7564"],
+
+["Night Sky","Stars",
+"https://images.unsplash.com/photo-1519608487953-e999c86e7455"],
+
+["Moon Light","Moon",
+"https://images.unsplash.com/photo-1532693322450-2cb5c511067d"],
+
+["Deep Space","Space",
+"https://images.unsplash.com/photo-1446776877081-d282a0f896e2"],
+
+["Milky Way","Space Art",
+"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429"],
+
+["Blue Planet","Space",
+"https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4"],
+
+["Blue Abstract","Abstract",
+"https://images.unsplash.com/photo-1557682250-33bd709cbe85"],
+
+["Color Flow","Art",
+"https://images.unsplash.com/photo-1541701494587-cb58502866ab"],
+
+["Purple Waves","Patterns",
+"https://images.unsplash.com/photo-1557683316-973673baf926"],
+
+["Neon Art","Neon",
+"https://images.unsplash.com/photo-1531058020387-3be344556be6"],
+
+["Dark Energy","Dark",
+"https://images.unsplash.com/photo-1557682224-5b8590cd9ec5"],
+
+["Orange Flow","Aesthetic",
+"https://images.unsplash.com/photo-1557682260-96773eb01377"],
+
+["City Nights","City",
+"https://images.unsplash.com/photo-1477959858617-67f85cf4f1df"],
+
+["New York","Architecture",
+"https://images.unsplash.com/photo-1496588152823-86ff7695e68f"],
+
+["Tokyo Lights","City",
+"https://images.unsplash.com/photo-1519501025264-65ba15a82390"],
+
+["City Road","Roads",
+"https://images.unsplash.com/photo-1444723121867-7a241cacace9"],
+
+["Night Buildings","Architecture",
+"https://images.unsplash.com/photo-1514565131-fce0801e5785"],
+
+["Downtown","City",
+"https://images.unsplash.com/photo-1449824913935-59a10b8d2000"],
+
+["Ocean View","Ocean",
+"https://images.unsplash.com/photo-1507525428034-b723cf961d3e"],
+
+["Sunset Beach","Sunset",
+"https://images.unsplash.com/photo-1473116763249-2faaef81ccda"],
+
+["Waterfall","Waterfalls",
+"https://images.unsplash.com/photo-1432405972618-c60b0225b8f9"],
+
+["Flower Garden","Flowers",
+"https://images.unsplash.com/photo-1490750967868-88aa4486c946"],
+
+["Desert Road","Desert",
+"https://images.unsplash.com/photo-1500534623283-312aade485b7"],
+
+["Snow Mountains","Snow",
+"https://images.unsplash.com/photo-1486911278844-a81c5267e227"],
+
+["Rain Drops","Rain",
+"https://images.unsplash.com/photo-1515694346937-94d85e41e6f0"],
+
+["Cloud World","Clouds",
+"https://images.unsplash.com/photo-1534088568595-a066f410bcda"],
+
+["Golden Sunrise","Sunrise",
+"https://images.unsplash.com/photo-1499346030926-9a72daac6c63"],
+
+["Wild Animal","Wildlife",
+"https://images.unsplash.com/photo-1549366021-9f761d450615"],
+
+["Beautiful Dog","Dogs",
+"https://images.unsplash.com/photo-1552053831-71594a27632d"],
+
+["Cute Cat","Cats",
+"https://images.unsplash.com/photo-1518791841217-8f162f1e1131"],
+
+["Flying Bird","Birds",
+"https://images.unsplash.com/photo-1444464666168-49d633b86797"],
+
+["Football","Football",
+"https://images.unsplash.com/photo-1579952363873-27f3bade9f55"],
+
+["Basketball","Basketball",
+"https://images.unsplash.com/photo-1546519638-68e109498ffc"],
+
+["Music","Music",
+"https://images.unsplash.com/photo-1511379938547-c1f69419868d"],
+
+["Technology","Technology",
+"https://images.unsplash.com/photo-1518770660439-4636190af475"],
+
+["Anime Style","Anime",
+"https://images.unsplash.com/photo-1578632767115-351597cf2477"],
+
+["Gaming Setup","Gaming",
+"https://images.unsplash.com/photo-1542751371-adc38448a05e"],
+
+["Minimal Design","Minimal",
+"https://images.unsplash.com/photo-1497366754035-f200968a6e72"],
+
+["3D World","3D",
+"https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4"]
+
+];
+
+
+/* ==========================================
+   AUTOMATICALLY CREATE 10,000 ENTRIES
+========================================== */
+
+const data=[];
+
+for(let i=0;i<10000;i++){
+
+const source=wallpaperSources[i%wallpaperSources.length];
+
+const category=categories[i%categories.length];
+
+data.push({
+
+id:i,
+
+title:source[0]+" "+(i+1),
+
+category:category,
+
+image:
+source[2]+
+"?auto=format&fit=crop&w=1000&q=85"
 
 });
+
 }
 
-function downloadWallpaper(button){
 
-const card=button.closest(".card");
-const image=card.querySelector("img");
+/* ==========================================
+   APP DATA
+========================================== */
 
-const link=document.createElement("a");
+let favorites=
+JSON.parse(localStorage.getItem("kjV1000Favorites")||"[]");
 
-link.href=image.src;
-link.download=card.dataset.name+".jpg";
-link.target="_blank";
+let history=
+JSON.parse(localStorage.getItem("kjV1000History")||"[]");
 
-document.body.appendChild(link);
-link.click();
-link.remove();
+let views=
+JSON.parse(localStorage.getItem("kjV1000Views")||"{}");
+
+let currentId=0;
+
+let currentCategory="all";
+
+let exploreLimit=40;
+
+
+/* ==========================================
+   SAVE
+========================================== */
+
+function save(){
+
+localStorage.setItem(
+"kjV1000Favorites",
+JSON.stringify(favorites)
+);
+
+localStorage.setItem(
+"kjV1000History",
+JSON.stringify(history)
+);
+
+localStorage.setItem(
+"kjV1000Views",
+JSON.stringify(views)
+);
+
 }
+
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+function showPage(id,btn){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+
+document.querySelectorAll(".nav")
+.forEach(n=>n.classList.remove("active"));
+
+if(btn)btn.classList.add("active");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+if(id==="explore")renderExplore();
+
+if(id==="favorites")renderFavorites();
+
+}
+
+
+/* ==========================================
+   WALLPAPER CARD
+========================================== */
+
+function card(w){
+
+const fav=favorites.includes(w.id);
+
+return `
+
+<div class="wall"
+onclick="openViewer(${w.id})">
+
+<img
+loading="lazy"
+src="${w.image}"
+alt="${w.title}"
+>
+
+<button
+class="heart"
+onclick="event.stopPropagation();toggleFavorite(${w.id})">
+
+${fav?"❤️":"🤍"}
+
+</button>
+
+<div class="wall-info">
+
+<b>${w.title}</b>
+
+<small>${w.category}</small>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* ==========================================
+   MINI CARD
+========================================== */
+
+function mini(w){
+
+return `
+
+<div
+class="mini-card"
+onclick="openViewer(${w.id})">
+
+<img
+loading="lazy"
+src="${w.image}"
+>
+
+<span>${w.title}</span>
+
+</div>
+
+`;
+
+}
+
+
+/* ==========================================
+   HOME
+========================================== */
+
+function renderHome(){
+
+const day=
+Math.floor(Date.now()/86400000)
+%data.length;
+
+const daily=data[day];
+
+document.getElementById("daily").innerHTML=`
+
+<img src="${daily.image}">
+
+<div class="hero-content">
+
+<small>📅 WALLPAPER OF THE DAY</small>
+
+<h2>${daily.title}</h2>
+
+<button
+class="btn"
+onclick="openViewer(${daily.id})">
+
+View Wallpaper
+
+</button>
+
+</div>
+
+`;
+
+document.getElementById("wallCount")
+.textContent=data.length;
+
+document.getElementById("favCount")
+.textContent=favorites.length;
+
+const totalViews=
+Object.values(views)
+.reduce((a,b)=>a+b,0);
+
+document.getElementById("viewCount")
+.textContent=totalViews;
+
+document.getElementById("trending").innerHTML=
+
+data
+.slice()
+.sort(
+(a,b)=>
+(views[b.id]||0)-
+(views[a.id]||0)
+)
+.slice(0,10)
+.map(mini)
+.join("");
+
+document.getElementById("newWallpapers").innerHTML=
+
+data
+.slice(-10)
+.reverse()
+.map(mini)
+.join("");
+
+document.getElementById("featured").innerHTML=
+
+data
+.filter((w,i)=>i%100===0)
+.slice(0,10)
+.map(mini)
+.join("");
+
+}
+
+
+/* ==========================================
+   CATEGORIES
+========================================== */
+
+function renderCategories(){
+
+const box=
+document.getElementById("categoryChips");
+
+box.innerHTML=
+
+`<button
+class="active"
+onclick="setCategory('all',this)">
+All
+</button>`
+
++
+
+categories.map(category=>`
+
+<button
+onclick="setCategory('${category}',this)">
+${category}
+</button>
+
+`).join("");
+
+}
+
+
+/* ==========================================
+   EXPLORE
+========================================== */
+
+function renderExplore(){
+
+const q=
+(
+document.getElementById("search")?.value||""
+).toLowerCase();
+
+const list=data.filter(w=>{
+
+const categoryOk=
+currentCategory==="all"||
+w.category===currentCategory;
+
+const searchOk=
+w.title.toLowerCase().includes(q)||
+w.category.toLowerCase().includes(q);
+
+return categoryOk&&searchOk;
+
+});
+
+const visible=
+list.slice(0,exploreLimit);
+
+document.getElementById("exploreGrid").innerHTML=
+
+visible.length
+
+?
+
+visible.map(card).join("")
+
++
+
+(
+list.length>exploreLimit
+
+?
+
+`
+<button
+class="btn load-more"
+onclick="loadMore()">
+
+Load More
+(${list.length-exploreLimit} remaining)
+
+</button>
+`
+
+:""
+)
+
+:
+
+`
+<div
+class="empty"
+style="grid-column:1/-1">
+
+No wallpapers found 😔
+
+</div>
+`;
+
+}
+
+
+function loadMore(){
+
+exploreLimit+=40;
+
+renderExplore();
+
+}
+
+
+function resetExplore(){
+
+exploreLimit=40;
+
+renderExplore();
+
+}
+
+
+/* ==========================================
+   CATEGORY FILTER
+========================================== */
+
+function setCategory(cat,btn){
+
+currentCategory=cat;
+
+exploreLimit=40;
+
+document.querySelectorAll(".chips button")
+.forEach(b=>b.classList.remove("active"));
+
+if(btn)btn.classList.add("active");
+
+showPage("explore");
+
+renderExplore();
+
+}
+
+
+function filterCategory(cat){
+
+currentCategory=cat;
+
+exploreLimit=40;
+
+showPage("explore");
+
+const search=
+document.getElementById("search");
+
+if(search)search.value="";
+
+renderExplore();
+
+}
+
+
+/* ==========================================
+   FAVORITES
+========================================== */
+
+function toggleFavorite(id){
+
+if(favorites.includes(id)){
+
+favorites=
+favorites.filter(x=>x!==id);
+
+toast("Removed from favorites");
+
+}else{
+
+favorites.push(id);
+
+toast("❤️ Added to favorites");
+
+}
+
+save();
+
+renderHome();
+
+renderExplore();
+
+renderFavorites();
+
+}
+
+
+function renderFavorites(){
+
+const list=
+data.filter(w=>favorites.includes(w.id));
+
+document.getElementById("favoriteGrid").innerHTML=
+
+list.length
+
+?
+
+list.map(card).join("")
+
+:
+
+`
+<div
+class="empty"
+style="grid-column:1/-1">
+
+❤️ No favorites yet.
+
+<br><br>
+
+Tap the heart on a wallpaper to save it.
+
+</div>
+`;
+
+}
+
+
+function clearFavorites(){
+
+favorites=[];
+
+save();
+
+renderHome();
+
+renderFavorites();
+
+renderExplore();
+
+toast("Favorites cleared");
+
+}
+
+
+/* ==========================================
+   VIEWER
+========================================== */
+
+function openViewer(id){
+
+const w=data.find(x=>x.id===id);
+
+if(!w)return;
+
+currentId=id;
+
+views[id]=(views[id]||0)+1;
+
+history=
+history.filter(x=>x!==id);
+
+history.unshift(id);
+
+history=
+history.slice(0,50);
+
+save();
+
+document.getElementById("viewerImg")
+.src=w.image;
+
+document.getElementById("viewerTitle")
+.textContent=w.title;
+
+document.getElementById("viewer")
+.classList.add("show");
+
+}
+
+
+function closeViewer(){
+
+document.getElementById("viewer")
+.classList.remove("show");
+
+}
+
+
+function nextWallpaper(){
+
+let index=
+data.findIndex(w=>w.id===currentId);
+
+index=(index+1)%data.length;
+
+openViewer(data[index].id);
+
+}
+
+
+function previousWallpaper(){
+
+let index=
+data.findIndex(w=>w.id===currentId);
+
+index=
+(index-1+data.length)%data.length;
+
+openViewer(data[index].id);
+
+}
+
+
+function randomWallpaper(){
+
+const id=
+Math.floor(Math.random()*data.length);
+
+openViewer(id);
+
+}
+
+
+/* ==========================================
+   DOWNLOAD / SHARE
+========================================== */
+
+function downloadCurrent(){
+
+const w=
+data.find(x=>x.id===currentId);
+
+if(!w)return;
+
+window.open(w.image,"_blank");
+
+toast("Opening wallpaper...");
+
+}
+
+
+async function copyLink(){
+
+const w=
+data.find(x=>x.id===currentId);
+
+if(!w)return;
+
+try{
+
+await navigator.clipboard.writeText(w.image);
+
+toast("🔗 Link copied");
+
+}catch{
+
+toast("Copy not supported");
+
+}
+
+}
+
+
+async function shareCurrent(){
+
+const w=
+data.find(x=>x.id===currentId);
+
+if(!w)return;
+
+if(navigator.share){
+
+try{
+
+await navigator.share({
+
+title:"KJ Wallpapers",
+
+text:w.title,
+
+url:w.image
+
+});
+
+}catch{}
+
+}else{
+
+copyLink();
+
+}
+
+}
+
+
+/* ==========================================
+   THEME
+========================================== */
+
+function toggleTheme(){
+
+document.body.classList.toggle("light");
+
+localStorage.setItem(
+"kjV1000Theme",
+
+document.body.classList.contains("light")
+?"light"
+:"dark"
+);
+
+}
+
+
+function setColor(color){
+
+document.documentElement
+.style.setProperty("--accent",color);
+
+localStorage.setItem(
+"kjV1000Color",
+color
+);
+
+toast("Accent color changed");
+
+}
+
+
+/* ==========================================
+   CLEAR VIEWS
+========================================== */
+
+function clearViews(){
+
+views={};
+
+save();
+
+renderHome();
+
+toast("Views cleared");
+
+}
+
+
+/* ==========================================
+   TOAST
+========================================== */
+
+function toast(message){
+
+const t=
+document.getElementById("toast");
+
+t.textContent=message;
+
+t.classList.add("show");
+
+clearTimeout(window.toastTimer);
+
+window.toastTimer=
+setTimeout(()=>{
+
+t.classList.remove("show");
+
+},1800);
+
+}
+
+
+/* ==========================================
+   KEYBOARD CONTROLS
+========================================== */
+
+document.addEventListener("keydown",e=>{
+
+if(
+!document
+.getElementById("viewer")
+.classList.contains("show")
+)return;
+
+if(e.key==="Escape")
+closeViewer();
+
+if(e.key==="ArrowRight")
+nextWallpaper();
+
+if(e.key==="ArrowLeft")
+previousWallpaper();
+
+});
+
+
+/* ==========================================
+   SWIPE CONTROLS
+========================================== */
+
+let startX=0;
+
+document
+.getElementById("viewer")
+.addEventListener(
+"touchstart",
+e=>{
+
+startX=e.touches[0].clientX;
+
+});
+
+
+document
+.getElementById("viewer")
+.addEventListener(
+"touchend",
+e=>{
+
+const endX=
+e.changedTouches[0].clientX;
+
+const diff=endX-startX;
+
+if(Math.abs(diff)>60){
+
+if(diff<0)
+nextWallpaper();
+
+else
+previousWallpaper();
+
+}
+
+});
+
+
+/* ==========================================
+   LOAD SAVED SETTINGS
+========================================== */
+
+const savedTheme=
+localStorage.getItem("kjV1000Theme");
+
+if(savedTheme==="light")
+document.body.classList.add("light");
+
+
+const savedColor=
+localStorage.getItem("kjV1000Color");
+
+if(savedColor)
+document.documentElement
+.style.setProperty("--accent",savedColor);
+
+
+/* ==========================================
+   START APP
+========================================== */
+
+renderCategories();
+
+renderHome();
+
+renderExplore();
+
+console.log("KJ Wallpapers loaded!");
+console.log("Total wallpapers:",data.length);
+console.log("Total categories:",categories.length);
+
 </script>
 
 </body>
